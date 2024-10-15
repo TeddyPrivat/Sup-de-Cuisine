@@ -1,4 +1,130 @@
-img{
-  width: 100px;
-  height:100px
+.header {
+  position: relative;
+
+  .image-background{
+    width:100%;
+    height: 450px;
+    object-fit: cover;
+    z-index: 2;
+    position: relative;
+  }
+
+  .search-input {
+    position: absolute;
+    z-index: 4;
+    width: 40%;
+    top: 45%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .texte-titre{
+    position: absolute;
+    font-size: 40px;
+    text-align: center;
+    font-family: "Protest Strike", sans-serif;
+    color: yellow;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 1);
+    font-weight: 400;
+    z-index: 5;
+    width: 50%;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  #searchInput {
+    width: 100%; /* L'input prend toute la largeur du conteneur */
+    padding: 10px 40px 10px 10px; /* Ajoute de l'espace à droite pour l'icône */
+    font-size: x-large;
+    height: 50px;
+    box-sizing: border-box;
+  }
+
+  .search-input i {
+    position: absolute;
+    right: 15px; /* Place l'icône à droite de l'input */
+    top: 50%;
+    transform: translateY(-50%); /* Centre verticalement l'icône */
+    font-size: x-large;
+    color: gray; /* Style de l'icône */
+    pointer-events: none; /* Désactive les interactions avec l'icône */
+  }
+
+}
+
+.filtres{
+  display: flex;
+  margin-top: 25px;
+  margin-left: 125px;
+}
+
+select{
+  padding-left: 5px;
+  border-radius: 5px;
+  height: 40px;
+  width:200px;
+  margin-right: 40px;
+}
+
+.recettes{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 25px 100px;
+}
+
+.recette{
+  border: 1px solid black;
+  margin: 25px;
+  border-bottom-left-radius: 10px; 
+  border-bottom-right-radius: 10px; 
+  max-width: 350px;
+  .image-recette{
+    width: 100%;
+    height:200px;
+    object-fit: cover;
+  }
+
+  .infos{
+    width: 350px;
+    margin: 10px;
+    box-sizing: border-box;
+    padding: 15px;  
+    display: block;
+
+  }
+
+  .infos-recette{
+    max-height: 4.5em; /* Limite à 3 lignes */
+    overflow: hidden; /* Cache le texte débordant */
+    line-height: 1.5em; /* Hauteur de chaque ligne */    
+  }
+  .infos-title{
+    color: grey;
+  }
+
+  .ingredients{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .ingredient {
+    width: calc(50% - 10px); /* Chaque élément prendra 50% de la largeur avec une petite marge */
+    box-sizing: border-box;  /* Inclure les marges et paddings dans la largeur */
+    margin-bottom: 10px;
+  }
+
+  .quantite-unite{
+    flex-direction: row;
+    color:grey;
+  }
+
+}
+
+.recette:hover{
+  /* transform: scale(1.05); */
+  box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.5);
+
 }
