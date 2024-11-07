@@ -66,8 +66,9 @@ body{
   .ingredients-contener{
     display: flex;
   }
-  .nb-recettes{
+  #nbResults{
     margin-right: 100px;
+    font-size: 18px;
   }
 }
 
@@ -189,7 +190,7 @@ select{
     flex-direction: column;
 
     #nbResults{
-      padding-top: 5px;
+      padding-top: 7px;
       padding-left: 0;
     }
   }
