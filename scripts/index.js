@@ -2,10 +2,15 @@ import { createRecette, truncateTextByHeight } from "./recette.js";
 
 const url = 'https://gist.githubusercontent.com/baiello/0a974b9c1ec73d7d0ed7c8abc361fc8e/raw/e598efa6ef42d34cc8d7e35da5afab795941e53e/recipes.json'
 
+let recettes = [];
+
 function getData() {
   return fetch(url)
       .then( response => response.json() )
-      .then( recettes => recettes )
+      .then( data => {
+        recettes = data; 
+        return recettes;
+      })
       .catch( error => error );
 };
 
@@ -18,16 +23,30 @@ getData().then(
 
 function displayRecettes(recettes) {
   const recettesContainer = document.getElementById('recettes');
+  const nbResults = document.getElementById('nbResults');
   recettesContainer.innerHTML = "";  // Vider l'affichage précédent
+  if(recettes.length === 0){
+    const noResultMessage = document.createElement('h3');
+    noResultMessage.style.fontFamily = "'Protest Strike', sans-serif";
+    noResultMessage.textContent = "Aucune recette à afficher";
+    recettesContainer.appendChild(noResultMessage);
+    nbResults.textContent = ""
+  }else{
+    if(recettes.length === 1){
+      nbResults.textContent = recettes.length + " recette";
+    }else{
+      nbResults.textContent = recettes.length + " recettes";
+    }
+    recettes.forEach(recette => {
+      const cardElement = createRecette(recette).createCard();
+      recettesContainer.append(cardElement);
 
-  recettes.forEach(recette => {
-    const cardElement = createRecette(recette).createCard();
-    recettesContainer.append(cardElement);
-
-    // Troncature de la description
-    const descriptionElement = cardElement.querySelector('.infos-recette');
-    truncateTextByHeight(descriptionElement, 72);
-  });
+      // Troncature de la description
+      const descriptionElement = cardElement.querySelector('.infos-recette');
+      truncateTextByHeight(descriptionElement, 72);
+    });
+  }
+  
 }
 
 function filterRecettes(recettes, searchTerm) {
@@ -41,16 +60,23 @@ function filterRecettes(recettes, searchTerm) {
   });
 }
 
+function debounce(func, delay) {
+  let timeout;
+  return function (...args) {
+    clearTimeout(timeout); 
+    timeout = setTimeout(() => func.apply(this, args), delay);
+  };
+}
 
-getData().then(
-  (recettes) => {
-    displayRecettes(recettes);
-      
-    const searchInput = document.getElementById('searchInput');
-    searchInput.addEventListener("keyup", () => {
-      const searchTerm = searchInput.value.trim().toLowerCase();
-      const filteredRecettes = filterRecettes(recettes, searchTerm);  
-      displayRecettes(filteredRecettes);  
-      });
-    }
-  );
+
+const handleSearch = debounce(() => {
+  const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
+  const filteredRecettes = filterRecettes(recettes, searchTerm);
+  displayRecettes(filteredRecettes);
+}, 300);
+
+getData().then(() => {
+  displayRecettes(recettes); // Affiche les recettes au chargement
+  const searchInput = document.getElementById('searchInput');
+  searchInput.addEventListener("keyup", handleSearch); // Utilise debounce sur la recherche
+});

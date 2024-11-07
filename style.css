@@ -15,7 +15,7 @@ body{
 
   .search-input {
     position: absolute;
-    z-index: 4;
+    z-index: 3;
     width: 40%;
     top: 45%;
     left: 50%;
@@ -29,7 +29,7 @@ body{
     color: yellow;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 1);
     font-weight: 400;
-    z-index: 5;
+    z-index: 4;
     width: 50%;
     top: 10%;
     left: 50%;
@@ -40,6 +40,7 @@ body{
     width: 100%; /* L'input prend toute la largeur du conteneur */
     padding: 10px 40px 10px 10px; /* Ajoute de l'espace à droite pour l'icône */
     font-size: x-large;
+    font-family: "Protest Strike", sans-serif;
     height: 50px;
     box-sizing: border-box;
   }
@@ -56,10 +57,18 @@ body{
 
 }
 
+
 .filtres{
   display: flex;
+  justify-content: space-between;
   margin-top: 25px;
   margin-left: 125px;
+  .ingredients-contener{
+    display: flex;
+  }
+  .nb-recettes{
+    margin-right: 100px;
+  }
 }
 
 select{
@@ -73,17 +82,17 @@ select{
 .recettes{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  justify-content: center;
   margin-left: 125px;
   margin-top: 30px;
 }
 
 .recette{
   border: 1px solid black;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
   border-bottom-left-radius: 10px; 
   border-bottom-right-radius: 10px; 
   max-width: 350px;
+  
   .image-recette{
     width: 100%;
     height:200px;
@@ -92,11 +101,9 @@ select{
 
   .infos{
     width: 350px;
-    margin: 10px;
     box-sizing: border-box;
     padding: 15px;  
     display: block;
-
   }
 
   .infos-recette{
@@ -125,7 +132,7 @@ select{
     flex-direction: row;
     color:grey;
   }
-
+  
 }
 
 .recette:hover{
@@ -133,13 +140,92 @@ select{
 
 }
 
+/* media query pour tablettes */
 @media (min-width: 600px) and (max-width: 1024px) {
-
-
   .recette{
-    max-width: 250px;
+    
     .infos{
       max-width: 250px;
+    }
+  }
+}
+
+/* media query pour téléphones */
+@media (min-width: 320px) and (max-width: 426px){
+  
+  .header{
+    .texte-titre{
+      font-size: 20px;
+      width: 100%;
+    }
+    .image-background{
+      width: 100%;
+      height: 175px;
+    }
+    .search-input > i {
+      position: absolute;
+      right: 10px;
+      top:75%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: gray;
+      pointer-events: none;
+    }
+    
+    .search-input{
+      width: auto;
+    }
+    #searchInput{
+      margin-top: 40px;
+      font-size: medium;
+      height: 40px;
+      width: 215px;
+    }
+  }
+  .filtres{
+    display: flex;
+    padding: 5%;
+    margin: 0;
+    flex-direction: column;
+
+    #nbResults{
+      padding-top: 5px;
+      padding-left: 0;
+    }
+  }
+  select{
+    border-radius: 5px;
+    height: 20px;
+    width: auto;
+    margin-right: 10px;
+  }
+
+  .recettes{
+    margin: 0;
+    grid-template-columns: 1fr;
+    padding: 5%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #nbResults{
+    padding-top: 5px;
+    padding-left: 5%;
+    margin: 0;
+  }
+  .recette{
+    max-width: 100%;
+    .infos{
+      width: 100%;
+    }
+    .infos-title{
+      font-size: 18px;
+    }
+    .infos-name > h1{
+      font-size: 20px;
+    }
+    .image-recette{
+      height: 175px;
     }
   }
 }

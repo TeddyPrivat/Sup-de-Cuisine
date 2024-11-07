@@ -16,9 +16,7 @@
   <header>
     <div class="header">
       <img class="image-background" src="images/image-background.avif">
-      <div class="texte-titre">
-        <p>CHERCHEZ PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN, SIMPLES ET GENEREUSES</p>
-      </div>
+      <p class="texte-titre">CHERCHEZ PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN, SIMPLES ET GENEREUSES</p>
       <div class="search-input">
           <input type="text" id="searchInput" placeholder="Recherchez une recette, un ingrédient..." autofocus />
           <i class="fa-solid fa-magnifying-glass"></i>
@@ -26,25 +24,28 @@
     </div>
   </header>
   <div class="filtres">
-    <div class="ingredients">
+    <div class="ingredients-contener">
+      <div class="ingredients">
+          <select>
+            <option>Ingrédients</option>
+          </select>
+      </div>
+      <div class="appareils">
         <select>
-          <option>Ingrédients</option>
+          <option>Appareils</option>
         </select>
-    </div>
-    <div class="appareils">
-      <select>
-        <option>Appareils</option>
-      </select>
-    </div>
-    <div class="ustensils">
-      <select>
-        <option>Ustensiles</option>
-      </select>
+      </div>
+      <div class="ustensils">
+        <select>
+          <option>Ustensiles</option>
+        </select>
+      </div>
     </div>
     <div class="nb-recettes">
-
+      <p id="nbResults" style="font-family: 'Protest Strike', sans-serif";></p>
     </div>
   </div>
+  
 
   <div id="recettes" class="recettes">
     
