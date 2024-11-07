@@ -16,19 +16,41 @@ getData().then(
 );
 //Tout ceci nous permet de recupérer nos recettes
 
+function displayRecettes(recettes) {
+  const recettesContainer = document.getElementById('recettes');
+  recettesContainer.innerHTML = "";  // Vider l'affichage précédent
+
+  recettes.forEach(recette => {
+    const cardElement = createRecette(recette).createCard();
+    recettesContainer.append(cardElement);
+
+    // Troncature de la description
+    const descriptionElement = cardElement.querySelector('.infos-recette');
+    truncateTextByHeight(descriptionElement, 72);
+  });
+}
+
+function filterRecettes(recettes, searchTerm) {
+  return recettes.filter(recette => {
+    // Vérifie si le terme de recherche est dans le nom ou les ingrédients de la recette
+    const nameMatch = recette.name.toLowerCase().includes(searchTerm);
+    const ingredientsMatch = recette.ingredients.some(ingredient =>
+      ingredient.ingredient.toLowerCase().includes(searchTerm)
+    );
+    return nameMatch || ingredientsMatch;
+  });
+}
+
+
 getData().then(
   (recettes) => {
-    const recettesContainer = document.getElementById('recettes');
-    const recettesLength = recettes.length;
-
-    for(let i = 0; i < recettesLength ; i++){
-      const recette = createRecette(recettes[i]);
-      const cardElement = recette.createCard();   
-      recettesContainer.append(cardElement);   
-
-      const descriptionElement = cardElement.querySelector('.infos-recette');
-      truncateTextByHeight(descriptionElement, 72);
+    displayRecettes(recettes);
+      
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener("keyup", () => {
+      const searchTerm = searchInput.value.trim().toLowerCase();
+      const filteredRecettes = filterRecettes(recettes, searchTerm);  
+      displayRecettes(filteredRecettes);  
+      });
     }
-  }
-);
-
+  );
