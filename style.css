@@ -230,3 +230,44 @@ select{
     }
   }
 }
+@media (min-width: 1024px) and (max-width:1440px){
+  .header{
+    .texte-titre{
+      width: 100%;
+   }
+
+   #searchInput{
+    margin-top: 50px;
+   }
+
+   .search-input > i {
+    top: 75%;
+   }
+  }
+
+  .filtres{
+    margin-left: 3em;
+    
+  }
+
+  .recettes{
+    margin-left: 3em;
+  }
+
+  .recette{
+    max-width: 280px;
+  }
+  
+}
+
+@media (min-width: 768px) and (max-width: 1024px){
+  .header{
+    .image-background{
+      width: 100%;
+    }
+
+    .filtres{
+      margin-left: 5em;
+    }
+  }
+}
