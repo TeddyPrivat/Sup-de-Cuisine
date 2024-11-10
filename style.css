@@ -43,12 +43,13 @@ body{
     font-family: "Protest Strike", sans-serif;
     height: 50px;
     box-sizing: border-box;
+    margin-top: 20px;
   }
 
   .search-input i {
     position: absolute;
     right: 15px; /* Place l'icône à droite de l'input */
-    top: 50%;
+    top: 65%;
     transform: translateY(-50%); /* Centre verticalement l'icône */
     font-size: x-large;
     color: gray; /* Style de l'icône */
@@ -60,6 +61,7 @@ body{
 
 .filtres{
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   margin-top: 25px;
   margin-left: 125px;
@@ -142,7 +144,7 @@ select{
 }
 
 /* media query pour tablettes */
-@media (min-width: 600px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
   .recette{
     
     .infos{
@@ -196,9 +198,10 @@ select{
   }
   select{
     border-radius: 5px;
-    height: 20px;
+    height: 30px;
     width: auto;
     margin-right: 10px;
+    margin-bottom: 10px;
   }
 
   .recettes{
@@ -240,6 +243,9 @@ select{
     margin-top: 50px;
    }
 
+   .search-input{
+    width: 75%;
+  }
    .search-input > i {
     top: 75%;
    }
@@ -255,19 +261,56 @@ select{
   }
 
   .recette{
-    max-width: 280px;
+    max-width: 300px;
   }
   
 }
 
-@media (min-width: 768px) and (max-width: 1024px){
+@media (min-width: 768px) and (max-width: 1023px){
   .header{
     .image-background{
       width: 100%;
     }
+    .texte-titre{
+      width: 100%;
+    }  
 
-    .filtres{
-      margin-left: 5em;
+    .search-input{
+      width: 60%;
     }
+    #searchInput{
+      margin-top: 50px;
+    }
+
+    .search-input > i {
+      top: 75%;
+    }
+  }
+  .filtres{
+    display: flex;
+    padding-top: 3%;
+    padding-left: 3%;
+    margin: 0;
+    flex-direction: column;
+
+    #nbResults{
+      padding-top: 7px;
+      padding-left: 0;
+    }
+  }
+
+  .recettes{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-left: 3%;
+  }
+
+  .recette{
+    max-width: 350px;
+  }
+}
+@media (min-width:1440px){
+  .recette{
+    max-width: 400px;
   }
 }
