@@ -71,8 +71,12 @@ function debounce(func, delay) {
 
 const handleSearch = debounce(() => {
   const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
-  const filteredRecettes = filterRecettes(recettes, searchTerm);
-  displayRecettes(filteredRecettes);
+  if(searchTerm.length >= 3){
+    const filteredRecettes = filterRecettes(recettes, searchTerm);
+    displayRecettes(filteredRecettes);
+  }else{
+    displayRecettes(recettes);
+  }
 }, 300);
 
 getData().then(() => {
