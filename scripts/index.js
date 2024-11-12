@@ -3,7 +3,6 @@ import { createRecette, truncateTextByHeight } from "./recette.js";
 const url = 'https://gist.githubusercontent.com/baiello/0a974b9c1ec73d7d0ed7c8abc361fc8e/raw/e598efa6ef42d34cc8d7e35da5afab795941e53e/recipes.json'
 
 let recettes = [];
-let ingredients = [];
 
 function getData() {
   return fetch(url)
@@ -20,7 +19,57 @@ getData().then(
     console.log(recettes);
   }
 );
-//Tout ceci nous permet de recupérer nos recettes
+
+function getUniqueUstensils(recettes) {
+  const ustensilsSet = new Set(); // Utilisation d'un Set : pas de doublons possibles
+
+  recettes.forEach(recette => {
+    recette.ustensils.forEach(ustensil => {
+      ustensilsSet.add(ustensil.toLowerCase()); 
+    });
+  });
+
+  return Array.from(ustensilsSet); // Convertit le Set en tableau
+}
+
+function populateUstensilsList(ustensilArray) {
+  const ustensilsList = document.getElementById('dropdown_ustensils');
+  ustensilArray.forEach(ustensil => {
+    // Créer un élément <li> pour chaque ustensile
+    const item = document.createElement('li');
+    item.textContent = ustensil;
+    item.className = 'ustensil-item';  // Ajouter une classe CSS pour le style si nécessaire
+    
+    // Ajouter un événement pour gérer la sélection d'un ustensile (par exemple, cliquer sur un élément)
+    item.addEventListener('click', () => {
+      console.log(`Ustensile sélectionné : ${ustensil}`);
+      // Vous pouvez ajouter ici une action de filtrage ou de sélection par ustensile si nécessaire
+    });
+
+    // Ajouter l'élément <li> à la liste
+    ustensilsList.appendChild(item);
+  });
+}
+
+
+let ustensils = [];
+getData().then(recettes => {
+  ustensils = getUniqueUstensils(recettes); // Extraire les ustensiles uniques
+  console.log(ustensils);
+  populateUstensilsList(ustensils); // Afficher la liste d'ustensiles dans la dropbox
+
+  const dropdownButton = document.querySelector('.dropdown_button');
+  const ustensilsList = document.getElementById('dropdown_ustensils');
+
+  // Par défaut, on cache la liste des ustensiles
+  ustensilsList.style.display = 'none';
+
+  // Ajouter un gestionnaire d'événements sur le bouton "Ustensiles" pour afficher/masquer la liste
+  dropdownButton.addEventListener('click', () => {
+    // Si la liste est déjà visible, la masquer, sinon l'afficher
+    ustensilsList.style.display = ustensilsList.style.display === 'none' ? 'block' : 'none';
+  });
+});
 
 function displayRecettes(recettes) {
   const recettesContainer = document.getElementById('recettes');
@@ -53,11 +102,12 @@ function displayRecettes(recettes) {
 function filterRecettes(recettes, searchTerm) {
   return recettes.filter(recette => {
     // Vérifie si le terme de recherche est dans le nom ou les ingrédients de la recette
+    const descriptionRecette = recette.description.toLowerCase().includes(searchTerm.toLowerCase());
     const nameMatch = recette.name.toLowerCase().includes(searchTerm);
     const ingredientsMatch = recette.ingredients.some(ingredient =>
       ingredient.ingredient.toLowerCase().includes(searchTerm)
     );
-    return nameMatch || ingredientsMatch;
+    return nameMatch || ingredientsMatch || descriptionRecette;
   });
 }
 

@@ -72,6 +72,46 @@ body{
     margin-right: 100px;
     font-size: 18px;
   }
+  /* Style de la dropdown */
+.dropdown {
+  position: relative;
+  width: 250px;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#dropdown_ustensils {
+  position: absolute;
+  top: 100%; /* Positionne la liste juste en dessous du bouton */
+  left: 0;
+  width: 100%; /* Vous pouvez ajuster la largeur selon vos besoins */
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: none; /* Liste cachée par défaut */
+  z-index: 9999; /* Assurez-vous qu'elle se superpose à d'autres éléments */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Pour ajouter une ombre portée, optionnel */
+}
+
+/* Ajouter un effet au survol des éléments de la liste */
+#dropdown_ustensils .ustensil-item:hover {
+  background-color: #f1f1f1;
+}
+
+.ustensil-item {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.ustensil-item:hover {
+  background-color: #f0f0f0; /* Changer la couleur au survol */
+}
 }
 
 select{
