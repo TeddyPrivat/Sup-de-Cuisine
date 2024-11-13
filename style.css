@@ -37,8 +37,8 @@ body{
   }
 
   #searchInput {
-    width: 100%; /* L'input prend toute la largeur du conteneur */
-    padding: 10px 40px 10px 10px; /* Ajoute de l'espace à droite pour l'icône */
+    width: 100%;
+    padding: 10px 40px 10px 10px;
     font-size: x-large;
     font-family: "Protest Strike", sans-serif;
     height: 50px;
@@ -48,12 +48,12 @@ body{
 
   .search-input i {
     position: absolute;
-    right: 15px; /* Place l'icône à droite de l'input */
+    right: 15px; 
     top: 65%;
-    transform: translateY(-50%); /* Centre verticalement l'icône */
+    transform: translateY(-50%);
     font-size: x-large;
-    color: gray; /* Style de l'icône */
-    pointer-events: none; /* Désactive les interactions avec l'icône */
+    color: gray; 
+    pointer-events: none;
   }
 
 }
@@ -71,7 +71,8 @@ body{
     margin-right: 100px;
     font-size: 18px;
   }
-  /* Style de la dropdown */
+
+  /* Style des dropdowns */
 .dropdown {
   position: relative;
   width: 250px;
@@ -89,15 +90,15 @@ body{
   padding: 0;
   margin-top: 16px;
   position: absolute;
-  top: 100%; /* Positionne la liste juste en dessous du bouton */
+  top: 100%; 
   left: 0;
-  width: 100%; /* Vous pouvez ajuster la largeur selon vos besoins */
+  width: 100%; 
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 4px;
-  display: none; /* Liste cachée par défaut */
-  z-index: 9999; /* Assurez-vous qu'elle se superpose à d'autres éléments */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Pour ajouter une ombre portée, optionnel */
+  display: none; 
+  z-index: 9999; 
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
   max-height: 200px;
   overflow-y: auto;
 }
@@ -113,41 +114,41 @@ body{
 }
 
 .ustensil-item:hover {
-  background-color: #f0f0f0; /* Changer la couleur au survol */
+  background-color: #f0f0f0; 
 }
 /* CSS DE NOS BOUTONS DE FILTRES */
 .dropdown_button_appliances,  .dropdown_button_ustensils, .dropdown_button_ingredients{
-  background: linear-gradient(135deg, #FFE699, #FFD966); /* Dégradé de jaune clair à jaune doré */
-  border: none; /* Enlève la bordure par défaut */
-  color: #5a5a5a; /* Couleur de texte légèrement sombre pour un bon contraste */
+  background: linear-gradient(135deg, #FFE699, #FFD966); 
+  border: none; 
+  color: #5a5a5a;
   padding: 10px 15px;
   font-size: 16px;
   font-weight: bold;
-  border-radius: 8px; /* Coins arrondis */
+  border-radius: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px; /* Espace entre le texte et l'icône */
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce */
-  transition: background 0.3s ease, transform 0.2s ease; /* Effet de transition */
+  gap: 8px; 
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .dropdown_button_appliances i, .dropdown_button_ustensils i, .dropdown_button_ingredients i {
-  transition: transform 0.2s ease; /* Transition pour l'icône */
+  transition: transform 0.2s ease; 
 }
 
 .dropdown_button_appliances:hover , .dropdown_button_ustensils:hover, .dropdown_button_ingredients:hover{
-  background: linear-gradient(135deg, #FFD966, #FFC531); /* Dégradé plus intense au survol */
-  transform: translateY(-2px); /* Légère élévation au survol */
+  background: linear-gradient(135deg, #FFD966, #FFC531);
+  transform: translateY(-2px);
 }
 
 .dropdown_button_appliances:active, .dropdown_button_ustensils:active, .dropdown_button_ingredients:active {
-  transform: translateY(0); /* Réinitialise la position au clic */
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Ombre réduite au clic */
+  transform: translateY(0); 
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); 
 }
 
 .dropdown_button_appliances:hover i , .dropdown_button_ustensils:hover i, .dropdown_button_ingredients:hover i{
-  transform: rotate(180deg); /* Effet de rotation sur l'icône */
+  transform: rotate(180deg);
 }
 
 
@@ -161,11 +162,11 @@ body{
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 4px;
-  display: none; /* Par défaut, la liste est cachée */
+  display: none; 
   z-index: 9999;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  max-height: 200px; /* Limite la hauteur si trop d'éléments */
-  overflow-y: auto; /* Ajoute un défilement si nécessaire */
+  max-height: 200px; 
+  overflow-y: auto; 
 }
 
 #dropdown_appliances .appliance-item {
@@ -186,11 +187,11 @@ body{
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 4px;
-  display: none; /* Par défaut, la liste est cachée */
+  display: none; 
   z-index: 9999;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  max-height: 200px; /* Limite la hauteur si trop d'éléments */
-  overflow-y: auto; /* Ajoute un défilement si nécessaire */
+  max-height: 200px; 
+  overflow-y: auto;
 }
 
 #dropdown_ingredients .ingredient-item {
@@ -247,7 +248,7 @@ select{
 
   .infos-recette{
     max-height: 4.5em; /* Limite à 3 lignes */
-    overflow: hidden; /* Cache le texte débordant */
+    overflow: hidden; 
     line-height: 1.5em; /* Hauteur de chaque ligne */    
   }
   .infos-title{
@@ -262,8 +263,8 @@ select{
   }
 
   .ingredient {
-    width: calc(50% - 10px); /* Chaque élément prendra 50% de la largeur avec une petite marge */
-    box-sizing: border-box;  /* Inclure les marges et paddings dans la largeur */
+    width: calc(50% - 10px); 
+    box-sizing: border-box;
     margin-bottom: 10px;
   }
 

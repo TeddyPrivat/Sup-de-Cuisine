@@ -67,8 +67,7 @@ function applyFilters() {
     const filteredRecettes = filterRecettes(recettes, searchTerm);
     displayRecettes(filteredRecettes);
   } else {
-    // Si la recherche a moins de 3 caractères et qu'aucun filtre n'est appliqué, on n'affiche pas les résultats.
-    displayRecettes(recettes);  // Affiche un message comme "aucune recette" si nécessaire
+    displayRecettes(recettes);
   }
 }
 
@@ -116,19 +115,14 @@ function populateIngredientsList(ingredientsArray) {
 
   searchInput.addEventListener('input', filterList);
 
-  // Créer les éléments <li> pour chaque ingrédient
   ingredientsArray.forEach(ingredient => {
     const item = document.createElement('li');
     item.textContent = ingredient;
-    item.className = 'ingredient-item'; // Classe pour styliser chaque ingrédient
+    item.className = 'ingredient-item'; 
     
-    // Ajouter un événement pour gérer la sélection d'un ingrédient
     item.addEventListener('click', () => {
-      console.log(`Ingrédient sélectionné : ${ingredient}`);
       addTag(ingredient);
     });
-
-    // Ajouter chaque <li> à la liste des ingrédients
     ingredientsList.appendChild(item);
   });
 }
@@ -137,14 +131,11 @@ function populateAppliancesList(applianceArray) {
   const applianceList = document.getElementById('dropdown_appliances'); 
   
   applianceArray.forEach(appliance => {
-    // Créer un élément <li> pour chaque appareil
     const item = document.createElement('li');
     item.textContent = appliance;
-    item.className = 'appliance-item';  // Ajouter une classe CSS pour le style si nécessaire
+    item.className = 'appliance-item';
 
-    // Ajouter un événement pour gérer la sélection d'un appareil si nécessaire
     item.addEventListener('click', () => {
-      console.log(`Appareil sélectionné : ${appliance}`);
       addTag(appliance);
     });
     applianceList.appendChild(item);
@@ -155,19 +146,13 @@ function populateAppliancesList(applianceArray) {
 function populateUstensilsList(ustensilArray) {
   const ustensilsList = document.getElementById('dropdown_ustensils');
   ustensilArray.forEach(ustensil => {
-    // Créer un élément <li> pour chaque ustensile
     const item = document.createElement('li');
     item.textContent = ustensil;
-    item.className = 'ustensil-item';  // Ajouter une classe CSS pour le style si nécessaire
+    item.className = 'ustensil-item';
     
-    // Ajouter un événement pour gérer la sélection d'un ustensile (par exemple, cliquer sur un élément)
     item.addEventListener('click', () => {
-      console.log(`Ustensile sélectionné : ${ustensil}`);
       addTag(ustensil);
-      // Vous pouvez ajouter ici une action de filtrage ou de sélection par ustensile si nécessaire
     });
-
-    // Ajouter l'élément <li> à la liste
     ustensilsList.appendChild(item);
   });
 }
@@ -182,13 +167,14 @@ getData().then(recettes => {
   console.log(ingredients);
   populateIngredientsList(ingredients);
 
-  ustensils = getUniqueUstensils(recettes); // Extraire les ustensiles uniques
+  ustensils = getUniqueUstensils(recettes);
   console.log(ustensils);
-  populateUstensilsList(ustensils); // Afficher la liste d'ustensiles dans la dropbox
+  populateUstensilsList(ustensils);
 
   appliances = getUniqueAppliance(recettes);
   console.log(appliances);
   populateAppliancesList(appliances);
+
   const dropdownButtonAppliances = document.querySelector('.dropdown_button_appliances');
   const dropdownButtonUstensils = document.querySelector('.dropdown_button_ustensils');
   const dropdownButtonIngredients = document.querySelector('.dropdown_button_ingredients')
@@ -208,26 +194,26 @@ getData().then(recettes => {
   ingredientsList.style.listStyle = 'none';
   
   dropdownButtonAppliances.addEventListener('click', () => {
-    // Si la liste est déjà visible, la masquer, sinon l'afficher
+    // Au click : si la liste est déjà visible, la masquer, sinon l'afficher
     appliancesList.style.display = appliancesList.style.display === 'none' ? 'block' : 'none';
   });
 
   
   dropdownButtonUstensils.addEventListener('click', () => {
-    // Si la liste est déjà visible, la masquer, sinon l'afficher
     ustensilsList.style.display = ustensilsList.style.display === 'none' ? 'block' : 'none';
   });
 
   dropdownButtonIngredients.addEventListener('click', () => {
-    // Si la liste est déjà visible, la masquer, sinon l'afficher
     ingredientsList.style.display = ingredientsList.style.display === 'none' ? 'block' : 'none';
   });
 });
 
 function displayRecettes(recettes) {
+
   const recettesContainer = document.getElementById('recettes');
   const nbResults = document.getElementById('nbResults');
   recettesContainer.innerHTML = "";  
+
   if(recettes.length === 0){
     const noResultMessage = document.createElement('h3');
     noResultMessage.style.fontFamily = "'Protest Strike', sans-serif";
@@ -240,11 +226,12 @@ function displayRecettes(recettes) {
     }else{
       nbResults.textContent = recettes.length + " recettes";
     }
+
     recettes.forEach(recette => {
       const cardElement = createRecette(recette).createCard();
       recettesContainer.append(cardElement);
 
-      // Troncature de la description
+      // Troncature de la description, ajout des 3 petits points
       const descriptionElement = cardElement.querySelector('.infos-recette');
       truncateTextByHeight(descriptionElement, 72);
     });
@@ -253,14 +240,14 @@ function displayRecettes(recettes) {
 
 function filterRecettes(recettes, searchTerm) {
   return recettes.filter(recette => {
-    // Vérifie le terme de recherche dans le nom, les ingrédients et la description
+
+    // Vérifie le terme de recherche dans le nom de la recette, les ingrédients ou la description
     const descriptionRecette = recette.description.toLowerCase().includes(searchTerm);
     const nameMatch = recette.name.toLowerCase().includes(searchTerm);
     const ingredientsMatch = recette.ingredients.some(ingredient =>
       ingredient.ingredient.toLowerCase().includes(searchTerm)
     );
 
-    // Vérification des tags dans `tagUsedFilters`
     const tagsMatch = tagUsedFilters.every(tag => {
       const tagLower = tag.toLowerCase();
 
@@ -271,7 +258,6 @@ function filterRecettes(recettes, searchTerm) {
 
       return isIngredient || isAppliance || isUstensil;
     });
-
     // Retourne vrai si le terme de recherche correspond et que tous les tags sont présents
     return (nameMatch || ingredientsMatch || descriptionRecette) && tagsMatch;
   });
@@ -296,5 +282,5 @@ const handleSearch = debounce(() => {
 getData().then(() => {
   displayRecettes(recettes); // Affiche les recettes au chargement
   const searchInput = document.getElementById('searchInput');
-  searchInput.addEventListener("keyup", handleSearch); // Utilise debounce sur la recherche
+  searchInput.addEventListener("keyup", handleSearch);
 });
