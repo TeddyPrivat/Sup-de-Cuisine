@@ -4,6 +4,9 @@ const url = 'https://gist.githubusercontent.com/baiello/0a974b9c1ec73d7d0ed7c8ab
 
 let recettes = [];
 
+//Ensemble de nos tags permettant de filtrer les recherches
+let tagUsedFilters = [];
+
 function getData() {
   return fetch(url)
       .then( response => response.json() )
@@ -66,10 +69,13 @@ function addTag(tagText) {
   tag.classList.add("tag");
   tag.innerHTML = `${tagText} <i class="fa fa-times"></i>`;
 
+  tagUsedFilters.push(tagText);
   // Ajoute l'événement pour retirer le tag lorsqu'on clique sur la croix
   tag.querySelector("i").addEventListener("click", () => {
     tag.remove();
-  });
+    let tmpTab = tagUsedFilters.filter(element => element !== tagText);
+    tagUsedFilters = tmpTab;
+    });
 
   tagsContainer.appendChild(tag);
 }

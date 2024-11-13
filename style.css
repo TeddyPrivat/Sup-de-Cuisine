@@ -86,6 +86,7 @@ body{
 }
 
 #dropdown_ustensils {
+  padding: 0;
   margin: 0;
   position: absolute;
   top: 100%; /* Positionne la liste juste en dessous du bouton */
@@ -117,6 +118,7 @@ body{
 
 /* Style de base pour le dropdown des appareils */
 #dropdown_appliances {
+  padding: 0;
   position: absolute;
   top: 100%;
   left: 0;
@@ -141,10 +143,11 @@ body{
 }
 
 #dropdown_ingredients {
+  padding: 0;
   position: absolute;
   top: 100%;
   left: 0;
-  width: 100%;
+  width: 200px;
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -251,7 +254,7 @@ select{
 .tag {
   display: inline-flex;
   align-items: center;
-  background-color: #e0e0e0;
+  background-color: #FFD966;
   color: #333;
   padding: 5px 10px;
   border-radius: 5px;
@@ -264,8 +267,10 @@ select{
 }
 /* media query pour tablettes */
 @media (min-width: 768px) and (max-width: 1024px) {
+  #tags{
+    margin-left: 3%;
+  }
   .recette{
-    
     .infos{
       max-width: 250px;
     }
@@ -304,12 +309,21 @@ select{
       width: 215px;
     }
   }
+
+  #tags{
+    margin-left: 5%;
+  }
   .filtres{
     display: flex;
     padding: 5%;
     margin: 0;
     flex-direction: column;
 
+    .dropdown{
+      display:flex;
+      width: max-content;
+      gap: 20px;
+    }
     #nbResults{
       padding-top: 7px;
       padding-left: 0;
