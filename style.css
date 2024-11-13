@@ -87,6 +87,7 @@ body{
 }
 
 #dropdown_ustensils {
+  margin: 0;
   position: absolute;
   top: 100%; /* Positionne la liste juste en dessous du bouton */
   left: 0;

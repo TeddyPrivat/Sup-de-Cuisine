@@ -32,6 +32,17 @@ function getUniqueUstensils(recettes) {
   return Array.from(ustensilsSet); // Convertit le Set en tableau
 }
 
+function getUniqueAppliance(recettes){
+  const appliancesSet = new Set();
+
+  recettes.forEach(recette => {
+    if(recette.appliance){
+      appliancesSet.add(recette.appliance.toLowerCase());
+    }
+  });
+  return Array.from(appliancesSet);
+}
+
 function populateUstensilsList(ustensilArray) {
   const ustensilsList = document.getElementById('dropdown_ustensils');
   ustensilArray.forEach(ustensil => {
@@ -53,16 +64,20 @@ function populateUstensilsList(ustensilArray) {
 
 
 let ustensils = [];
+let appliances = [];
 getData().then(recettes => {
   ustensils = getUniqueUstensils(recettes); // Extraire les ustensiles uniques
   console.log(ustensils);
   populateUstensilsList(ustensils); // Afficher la liste d'ustensiles dans la dropbox
 
+  appliances = getUniqueAppliance(recettes);
+  console.log(appliances);
   const dropdownButton = document.querySelector('.dropdown_button');
   const ustensilsList = document.getElementById('dropdown_ustensils');
 
   // Par défaut, on cache la liste des ustensiles
   ustensilsList.style.display = 'none';
+  ustensilsList.style.listStyle= 'none'
 
   // Ajouter un gestionnaire d'événements sur le bouton "Ustensiles" pour afficher/masquer la liste
   dropdownButton.addEventListener('click', () => {

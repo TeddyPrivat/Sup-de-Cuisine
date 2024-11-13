@@ -59,7 +59,7 @@ descriptions.forEach((desc) => {
 });
 
 export const createRecette = (recette) => {
-  const {id, image, name, description, ingredients } = recette;
+  const {id, image, name, description, ingredients, appliance } = recette;
 
   return{
     id: id,
@@ -67,6 +67,7 @@ export const createRecette = (recette) => {
     name: name, 
     description: description,
     ingredients: ingredients,
+    appliance: appliance,
     createCard: createCard
   }
 }
