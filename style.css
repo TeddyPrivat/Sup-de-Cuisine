@@ -241,6 +241,27 @@ select{
 
 }
 
+/** TAGS **/
+#tags{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 5px 3em;
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  background-color: #e0e0e0;
+  color: #333;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.9em;
+}
+
+.tag i {
+  cursor: pointer;
+  margin-left: 5px;
+}
 /* media query pour tablettes */
 @media (min-width: 768px) and (max-width: 1024px) {
   .recette{

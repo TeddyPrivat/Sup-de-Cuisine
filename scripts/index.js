@@ -3,7 +3,7 @@ import { createRecette, truncateTextByHeight } from "./recette.js";
 const url = 'https://gist.githubusercontent.com/baiello/0a974b9c1ec73d7d0ed7c8abc361fc8e/raw/e598efa6ef42d34cc8d7e35da5afab795941e53e/recipes.json'
 
 let recettes = [];
-let activeTags = [];
+
 function getData() {
   return fetch(url)
       .then( response => response.json() )
@@ -55,17 +55,33 @@ function getUniqueIngredient(recettes){
   });
   return Array.from(ingredientsSet);
 }
+function addTag(tagText) {
+  const tagsContainer = document.getElementById("tags");
 
+  // Vérifie si le tag existe déjà pour éviter les doublons
+  if ([...tagsContainer.children].some(tag => tag.textContent.trim() === tagText)) return;
+
+  // Crée l'élément du tag
+  const tag = document.createElement("div");
+  tag.classList.add("tag");
+  tag.innerHTML = `${tagText} <i class="fa fa-times"></i>`;
+
+  // Ajoute l'événement pour retirer le tag lorsqu'on clique sur la croix
+  tag.querySelector("i").addEventListener("click", () => {
+    tag.remove();
+  });
+
+  tagsContainer.appendChild(tag);
+}
 function populateIngredientsList(ingredientsArray) {
   const ingredientsList = document.getElementById('dropdown_ingredients');
   
-  // Créer une barre de recherche pour filtrer les ingrédients
+  // Barre de recherche pour filtrer les ingrédients
   const searchInput = document.createElement('input');
   searchInput.type = 'text';
   searchInput.placeholder = 'Recherchez un ingrédient...';
-  searchInput.className = 'search-bar'; // Utilisation correcte de `className`
+  searchInput.className = 'search-bar'; 
 
-  // Ajouter la barre de recherche au début de la liste
   ingredientsList.appendChild(searchInput);
 
   // Fonction pour filtrer les éléments de la liste en fonction de la recherche
@@ -89,7 +105,7 @@ function populateIngredientsList(ingredientsArray) {
     // Ajouter un événement pour gérer la sélection d'un ingrédient
     item.addEventListener('click', () => {
       console.log(`Ingrédient sélectionné : ${ingredient}`);
-      addTag(ingredient); // Appelle la fonction pour ajouter un tag si nécessaire
+      addTag(ingredient);
     });
 
     // Ajouter chaque <li> à la liste des ingrédients
@@ -109,10 +125,8 @@ function populateAppliancesList(applianceArray) {
     // Ajouter un événement pour gérer la sélection d'un appareil si nécessaire
     item.addEventListener('click', () => {
       console.log(`Appareil sélectionné : ${appliance}`);
-      // Vous pouvez ajouter ici une action de filtrage ou de sélection par appareil
+      addTag(appliance);
     });
-
-    // Ajouter l'élément <li> à la liste
     applianceList.appendChild(item);
   });
 }
@@ -129,6 +143,7 @@ function populateUstensilsList(ustensilArray) {
     // Ajouter un événement pour gérer la sélection d'un ustensile (par exemple, cliquer sur un élément)
     item.addEventListener('click', () => {
       console.log(`Ustensile sélectionné : ${ustensil}`);
+      addTag(ustensil);
       // Vous pouvez ajouter ici une action de filtrage ou de sélection par ustensile si nécessaire
     });
 
