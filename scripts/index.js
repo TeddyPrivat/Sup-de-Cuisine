@@ -3,7 +3,7 @@ import { createRecette, truncateTextByHeight } from "./recette.js";
 const url = 'https://gist.githubusercontent.com/baiello/0a974b9c1ec73d7d0ed7c8abc361fc8e/raw/e598efa6ef42d34cc8d7e35da5afab795941e53e/recipes.json'
 
 let recettes = [];
-
+let activeTags = [];
 function getData() {
   return fetch(url)
       .then( response => response.json() )
@@ -43,6 +43,38 @@ function getUniqueAppliance(recettes){
   return Array.from(appliancesSet);
 }
 
+function getUniqueIngredient(recettes){
+  const ingredientsSet = new Set();
+
+  recettes.forEach(recette => {
+    if(recette.ingredients){
+      recette.ingredients.forEach(ingredient => {
+      ingredientsSet.add(ingredient.ingredient.toLowerCase());
+      });
+    }
+  });
+  return Array.from(ingredientsSet);
+}
+
+function populateIngredientsList(ingredientsArray) {
+  const ingredientsList = document.getElementById('dropdown_ingredients');
+  
+  ingredientsArray.forEach(ingredient => {
+    // Créer un élément <li> pour chaque appareil
+    const item = document.createElement('li');
+    item.textContent = ingredient;
+    item.className = 'ingredient-item';  // Ajouter une classe CSS pour le style si nécessaire
+
+    // Ajouter un événement pour gérer la sélection d'un appareil si nécessaire
+    item.addEventListener('click', () => {
+      console.log(`Ingrédient sélectionné : ${ingredient}`);
+      // Vous pouvez ajouter ici une action de filtrage ou de sélection par appareil
+    });
+
+    // Ajouter l'élément <li> à la liste
+    ingredientsList.appendChild(item);
+  });
+}
 function populateAppliancesList(applianceArray) {
   const applianceList = document.getElementById('dropdown_appliances');
   
@@ -86,7 +118,13 @@ function populateUstensilsList(ustensilArray) {
 
 let ustensils = [];
 let appliances = [];
+let ingredients = [];
 getData().then(recettes => {
+
+  ingredients = getUniqueIngredient(recettes);
+  console.log(ingredients);
+  populateIngredientsList(ingredients);
+
   ustensils = getUniqueUstensils(recettes); // Extraire les ustensiles uniques
   console.log(ustensils);
   populateUstensilsList(ustensils); // Afficher la liste d'ustensiles dans la dropbox
@@ -96,15 +134,21 @@ getData().then(recettes => {
   populateAppliancesList(appliances);
   const dropdownButtonAppliances = document.querySelector('.dropdown_button_appliances');
   const dropdownButtonUstensils = document.querySelector('.dropdown_button_ustensils');
+  const dropdownButtonIngredients = document.querySelector('.dropdown_button_ingredients')
+
   const ustensilsList = document.getElementById('dropdown_ustensils');
   const appliancesList = document.getElementById('dropdown_appliances');
+  const ingredientsList = document.getElementById('dropdown_ingredients')
+
   // Par défaut, on cache la liste des ustensiles
   ustensilsList.style.display = 'none';
-  ustensilsList.style.listStyle= 'none'
-
+  ustensilsList.style.listStyle = 'none';
   
   appliancesList.style.display = 'none';
-  appliancesList.style.listStyle= 'none'
+  appliancesList.style.listStyle = 'none';
+
+  ingredientsList.style.display = 'none';
+  ingredientsList.style.listStyle = 'none';
   
   dropdownButtonAppliances.addEventListener('click', () => {
     // Si la liste est déjà visible, la masquer, sinon l'afficher
@@ -115,6 +159,11 @@ getData().then(recettes => {
   dropdownButtonUstensils.addEventListener('click', () => {
     // Si la liste est déjà visible, la masquer, sinon l'afficher
     ustensilsList.style.display = ustensilsList.style.display === 'none' ? 'block' : 'none';
+  });
+
+  dropdownButtonIngredients.addEventListener('click', () => {
+    // Si la liste est déjà visible, la masquer, sinon l'afficher
+    ingredientsList.style.display = ingredientsList.style.display === 'none' ? 'block' : 'none';
   });
 });
 
@@ -154,6 +203,7 @@ function filterRecettes(recettes, searchTerm) {
     const ingredientsMatch = recette.ingredients.some(ingredient =>
       ingredient.ingredient.toLowerCase().includes(searchTerm)
     );
+    
     return nameMatch || ingredientsMatch || descriptionRecette;
   });
 }

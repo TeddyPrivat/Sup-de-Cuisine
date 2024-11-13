@@ -26,9 +26,12 @@
   <div class="filtres">
     <div class="ingredients-contener">
       <div class="ingredients">
-          <select>
-            <option>Ingrédients</option>
-          </select>
+        <div class="dropdown">
+          <button class="dropdown_button_ingredients">Ingrédients<i class="fa-solid fa-chevron-down"></i></button>
+          <ul id="dropdown_ingredients">
+            <!-- Les appareils seront ici -->
+          </ul>
+        </div>
       </div>
       <div class="appareils">
         <div class="dropdown">
@@ -54,7 +57,9 @@
   <div id="recettes" class="recettes">
     
   </div>
+  <div class="tags">
 
+  </div>
   <script type="module" src="/scripts/index.js"></script>
 </body>
 </html>
