@@ -58,41 +58,40 @@ function getUniqueIngredient(recettes){
   });
   return Array.from(ingredientsSet);
 }
+
+function applyFilters() {
+  const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
+
+  // Vérifie si la recherche a au moins 3 caractères ou s'il y a des filtres appliqués
+  if (searchTerm.length >= 3 || tagUsedFilters.length > 0) {
+    const filteredRecettes = filterRecettes(recettes, searchTerm);
+    displayRecettes(filteredRecettes);
+  } else {
+    // Si la recherche a moins de 3 caractères et qu'aucun filtre n'est appliqué, on n'affiche pas les résultats.
+    displayRecettes(recettes);  // Affiche un message comme "aucune recette" si nécessaire
+  }
+}
+
 function addTag(tagText) {
   const tagsContainer = document.getElementById("tags");
 
-  // Vérifie si le tag existe déjà pour éviter les doublons
+  // On évite les doublons de tags
   if ([...tagsContainer.children].some(tag => tag.textContent.trim() === tagText)) return;
 
-  // Crée l'élément du tag
   const tag = document.createElement("div");
   tag.classList.add("tag");
   tag.innerHTML = `${tagText} <i class="fa fa-times"></i>`;
-
-  // Ajoute le tag au tableau des filtres actifs
   tagUsedFilters.push(tagText);
 
   // Ajoute l'événement pour retirer le tag lorsqu'on clique sur la croix
   tag.querySelector("i").addEventListener("click", () => {
     tag.remove();
-
-    // Met à jour `tagUsedFilters` en enlevant le tag supprimé
     tagUsedFilters = tagUsedFilters.filter(element => element !== tagText);
-
-    // Réaffiche les recettes après la suppression du tag
     applyFilters();
   });
 
   tagsContainer.appendChild(tag);
-
-  // Applique les filtres pour afficher les recettes correspondantes au nouveau tag
   applyFilters();
-}
-
-function applyFilters() {
-  const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
-  const filteredRecettes = filterRecettes(recettes, searchTerm);
-  displayRecettes(filteredRecettes);
 }
 
 function populateIngredientsList(ingredientsArray) {
@@ -101,7 +100,7 @@ function populateIngredientsList(ingredientsArray) {
   // Barre de recherche pour filtrer les ingrédients
   const searchInput = document.createElement('input');
   searchInput.type = 'text';
-  searchInput.placeholder = 'Recherchez un ingrédient...';
+  searchInput.placeholder = 'Poulet...';
   searchInput.className = 'search-bar'; 
 
   ingredientsList.appendChild(searchInput);
@@ -115,7 +114,6 @@ function populateIngredientsList(ingredientsArray) {
     });
   }
 
-  // Écouteur pour filtrer la liste en temps réel
   searchInput.addEventListener('input', filterList);
 
   // Créer les éléments <li> pour chaque ingrédient
