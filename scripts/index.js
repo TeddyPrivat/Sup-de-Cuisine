@@ -59,24 +59,46 @@ function getUniqueIngredient(recettes){
 function populateIngredientsList(ingredientsArray) {
   const ingredientsList = document.getElementById('dropdown_ingredients');
   
+  // Créer une barre de recherche pour filtrer les ingrédients
+  const searchInput = document.createElement('input');
+  searchInput.type = 'text';
+  searchInput.placeholder = 'Recherchez un ingrédient...';
+  searchInput.className = 'search-bar'; // Utilisation correcte de `className`
+
+  // Ajouter la barre de recherche au début de la liste
+  ingredientsList.appendChild(searchInput);
+
+  // Fonction pour filtrer les éléments de la liste en fonction de la recherche
+  function filterList() {
+    const query = searchInput.value.toLowerCase();
+    ingredientsList.querySelectorAll('.ingredient-item').forEach(item => {
+      const ingredientName = item.textContent.toLowerCase();
+      item.style.display = ingredientName.includes(query) ? 'block' : 'none';
+    });
+  }
+
+  // Écouteur pour filtrer la liste en temps réel
+  searchInput.addEventListener('input', filterList);
+
+  // Créer les éléments <li> pour chaque ingrédient
   ingredientsArray.forEach(ingredient => {
-    // Créer un élément <li> pour chaque appareil
     const item = document.createElement('li');
     item.textContent = ingredient;
-    item.className = 'ingredient-item';  // Ajouter une classe CSS pour le style si nécessaire
-
-    // Ajouter un événement pour gérer la sélection d'un appareil si nécessaire
+    item.className = 'ingredient-item'; // Classe pour styliser chaque ingrédient
+    
+    // Ajouter un événement pour gérer la sélection d'un ingrédient
     item.addEventListener('click', () => {
       console.log(`Ingrédient sélectionné : ${ingredient}`);
-      // Vous pouvez ajouter ici une action de filtrage ou de sélection par appareil
+      addTag(ingredient); // Appelle la fonction pour ajouter un tag si nécessaire
     });
 
-    // Ajouter l'élément <li> à la liste
+    // Ajouter chaque <li> à la liste des ingrédients
     ingredientsList.appendChild(item);
   });
 }
+
 function populateAppliancesList(applianceArray) {
-  const applianceList = document.getElementById('dropdown_appliances');
+  const applianceList = document.getElementById('dropdown_appliances'); 
   
   applianceArray.forEach(appliance => {
     // Créer un élément <li> pour chaque appareil

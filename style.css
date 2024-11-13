@@ -164,6 +164,12 @@ body{
   background-color: #f1f1f1;
 }
 
+#dropdown_ingreidents .search-bar {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
 }
 
 select{
