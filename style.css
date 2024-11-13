@@ -115,6 +115,41 @@ body{
 .ustensil-item:hover {
   background-color: #f0f0f0; /* Changer la couleur au survol */
 }
+/* CSS DE NOS BOUTONS DE FILTRES */
+.dropdown_button_appliances,  .dropdown_button_ustensils, .dropdown_button_ingredients{
+  background: linear-gradient(135deg, #FFE699, #FFD966); /* Dégradé de jaune clair à jaune doré */
+  border: none; /* Enlève la bordure par défaut */
+  color: #5a5a5a; /* Couleur de texte légèrement sombre pour un bon contraste */
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px; /* Coins arrondis */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Espace entre le texte et l'icône */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce */
+  transition: background 0.3s ease, transform 0.2s ease; /* Effet de transition */
+}
+
+.dropdown_button_appliances i, .dropdown_button_ustensils i, .dropdown_button_ingredients i {
+  transition: transform 0.2s ease; /* Transition pour l'icône */
+}
+
+.dropdown_button_appliances:hover , .dropdown_button_ustensils:hover, .dropdown_button_ingredients:hover{
+  background: linear-gradient(135deg, #FFD966, #FFC531); /* Dégradé plus intense au survol */
+  transform: translateY(-2px); /* Légère élévation au survol */
+}
+
+.dropdown_button_appliances:active, .dropdown_button_ustensils:active, .dropdown_button_ingredients:active {
+  transform: translateY(0); /* Réinitialise la position au clic */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Ombre réduite au clic */
+}
+
+.dropdown_button_appliances:hover i , .dropdown_button_ustensils:hover i, .dropdown_button_ingredients:hover i{
+  transform: rotate(180deg); /* Effet de rotation sur l'icône */
+}
+
 
 /* Style de base pour le dropdown des appareils */
 #dropdown_appliances {
@@ -319,6 +354,10 @@ select{
     margin: 0;
     flex-direction: column;
 
+    .ingredients-contener{
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
     .dropdown{
       display:flex;
       width: max-content;
@@ -445,5 +484,14 @@ select{
 @media (min-width:1440px){
   .recette{
     max-width: 400px;
+  }
+  .recettes{
+    margin-left: 5%;
+  }
+  #tags{
+    margin-left: 5%;
+  }
+  .filtres{
+    margin-left: 5%;
   }
 }

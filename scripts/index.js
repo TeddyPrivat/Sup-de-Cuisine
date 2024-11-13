@@ -69,16 +69,32 @@ function addTag(tagText) {
   tag.classList.add("tag");
   tag.innerHTML = `${tagText} <i class="fa fa-times"></i>`;
 
+  // Ajoute le tag au tableau des filtres actifs
   tagUsedFilters.push(tagText);
+
   // Ajoute l'événement pour retirer le tag lorsqu'on clique sur la croix
   tag.querySelector("i").addEventListener("click", () => {
     tag.remove();
-    let tmpTab = tagUsedFilters.filter(element => element !== tagText);
-    tagUsedFilters = tmpTab;
-    });
+
+    // Met à jour `tagUsedFilters` en enlevant le tag supprimé
+    tagUsedFilters = tagUsedFilters.filter(element => element !== tagText);
+
+    // Réaffiche les recettes après la suppression du tag
+    applyFilters();
+  });
 
   tagsContainer.appendChild(tag);
+
+  // Applique les filtres pour afficher les recettes correspondantes au nouveau tag
+  applyFilters();
 }
+
+function applyFilters() {
+  const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
+  const filteredRecettes = filterRecettes(recettes, searchTerm);
+  displayRecettes(filteredRecettes);
+}
+
 function populateIngredientsList(ingredientsArray) {
   const ingredientsList = document.getElementById('dropdown_ingredients');
   
@@ -235,21 +251,34 @@ function displayRecettes(recettes) {
       truncateTextByHeight(descriptionElement, 72);
     });
   }
-  
 }
 
 function filterRecettes(recettes, searchTerm) {
   return recettes.filter(recette => {
-    // Vérifie si le terme de recherche est dans le nom ou les ingrédients de la recette
-    const descriptionRecette = recette.description.toLowerCase().includes(searchTerm.toLowerCase());
+    // Vérifie le terme de recherche dans le nom, les ingrédients et la description
+    const descriptionRecette = recette.description.toLowerCase().includes(searchTerm);
     const nameMatch = recette.name.toLowerCase().includes(searchTerm);
     const ingredientsMatch = recette.ingredients.some(ingredient =>
       ingredient.ingredient.toLowerCase().includes(searchTerm)
     );
-    
-    return nameMatch || ingredientsMatch || descriptionRecette;
+
+    // Vérification des tags dans `tagUsedFilters`
+    const tagsMatch = tagUsedFilters.every(tag => {
+      const tagLower = tag.toLowerCase();
+
+      // Vérifie si le tag est dans les ingrédients, appareils ou ustensiles
+      const isIngredient = recette.ingredients.some(ingredient => ingredient.ingredient.toLowerCase() === tagLower);
+      const isAppliance = recette.appliance && recette.appliance.toLowerCase() === tagLower;
+      const isUstensil = recette.ustensils.some(ustensil => ustensil.toLowerCase() === tagLower);
+
+      return isIngredient || isAppliance || isUstensil;
+    });
+
+    // Retourne vrai si le terme de recherche correspond et que tous les tags sont présents
+    return (nameMatch || ingredientsMatch || descriptionRecette) && tagsMatch;
   });
 }
+
 
 function debounce(func, delay) {
   let timeout;
@@ -261,14 +290,10 @@ function debounce(func, delay) {
 
 
 const handleSearch = debounce(() => {
-  const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
-  if(searchTerm.length >= 3){
-    const filteredRecettes = filterRecettes(recettes, searchTerm);
-    displayRecettes(filteredRecettes);
-  }else{
-    displayRecettes(recettes);
-  }
+  applyFilters();
 }, 300);
+
+
 
 getData().then(() => {
   displayRecettes(recettes); // Affiche les recettes au chargement
