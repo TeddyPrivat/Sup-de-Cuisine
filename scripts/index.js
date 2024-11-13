@@ -93,6 +93,16 @@ function addTag(tagText) {
   applyFilters();
 }
 
+//Fonction qui permet de filtrer avec l'input dans chaque dropbox 
+function filterList(liste, searchInput, classe){
+  const query = searchInput.value.toLowerCase();
+  liste.querySelectorAll(classe).forEach(item => {
+    const itemText = item.textContent.toLowerCase();
+    item.style.display = itemText.includes(query) ? 'block' : 'none';;
+  });
+}
+
+
 function populateIngredientsList(ingredientsArray) {
   const ingredientsList = document.getElementById('dropdown_ingredients');
   
@@ -104,16 +114,9 @@ function populateIngredientsList(ingredientsArray) {
 
   ingredientsList.appendChild(searchInput);
 
-  // Fonction pour filtrer les éléments de la liste en fonction de la recherche
-  function filterList() {
-    const query = searchInput.value.toLowerCase();
-    ingredientsList.querySelectorAll('.ingredient-item').forEach(item => {
-      const ingredientName = item.textContent.toLowerCase();
-      item.style.display = ingredientName.includes(query) ? 'block' : 'none';
-    });
-  }
-
-  searchInput.addEventListener('input', filterList);
+  searchInput.addEventListener('input', () => {
+    filterList(ingredientsList, searchInput, '.ingredient-item');
+  });
 
   ingredientsArray.forEach(ingredient => {
     const item = document.createElement('li');
@@ -129,11 +132,22 @@ function populateIngredientsList(ingredientsArray) {
 
 function populateAppliancesList(applianceArray) {
   const applianceList = document.getElementById('dropdown_appliances'); 
-  
+
+  const searchInput = document.createElement('input');
+  searchInput.type = 'text';
+  searchInput.placeholder = 'Blender...';
+  searchInput.className = 'search-bar'; 
+
+  applianceList.appendChild(searchInput);
+
+  searchInput.addEventListener('input', () => {
+    filterList(applianceList, searchInput, '.appliance-item')
+  });
+
   applianceArray.forEach(appliance => {
     const item = document.createElement('li');
     item.textContent = appliance;
-    item.className = 'appliance-item';
+    item.className = "appliance-item";
 
     item.addEventListener('click', () => {
       addTag(appliance);
@@ -145,6 +159,18 @@ function populateAppliancesList(applianceArray) {
 
 function populateUstensilsList(ustensilArray) {
   const ustensilsList = document.getElementById('dropdown_ustensils');
+
+  const searchInput = document.createElement('input');
+  searchInput.type = 'text';
+  searchInput.placeholder = 'Passoire...';
+  searchInput.className = 'search-bar';
+
+  ustensilsList.appendChild(searchInput);
+
+  searchInput.addEventListener('input', () => {
+    filterList(ustensilsList, searchInput, '.ustensil-item');
+  });
+  
   ustensilArray.forEach(ustensil => {
     const item = document.createElement('li');
     item.textContent = ustensil;
