@@ -98,6 +98,8 @@ body{
   display: none; /* Liste cachée par défaut */
   z-index: 9999; /* Assurez-vous qu'elle se superpose à d'autres éléments */
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Pour ajouter une ombre portée, optionnel */
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 /* Ajouter un effet au survol des éléments de la liste */
@@ -113,6 +115,32 @@ body{
 .ustensil-item:hover {
   background-color: #f0f0f0; /* Changer la couleur au survol */
 }
+
+/* Style de base pour le dropdown des appareils */
+#dropdown_appliances {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: none; /* Par défaut, la liste est cachée */
+  z-index: 9999;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  max-height: 200px; /* Limite la hauteur si trop d'éléments */
+  overflow-y: auto; /* Ajoute un défilement si nécessaire */
+}
+
+#dropdown_appliances .appliance-item {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+#dropdown_appliances .appliance-item:hover {
+  background-color: #f1f1f1;
+}
+
 }
 
 select{

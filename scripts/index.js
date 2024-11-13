@@ -43,6 +43,27 @@ function getUniqueAppliance(recettes){
   return Array.from(appliancesSet);
 }
 
+function populateAppliancesList(applianceArray) {
+  const applianceList = document.getElementById('dropdown_appliances');
+  
+  applianceArray.forEach(appliance => {
+    // Créer un élément <li> pour chaque appareil
+    const item = document.createElement('li');
+    item.textContent = appliance;
+    item.className = 'appliance-item';  // Ajouter une classe CSS pour le style si nécessaire
+
+    // Ajouter un événement pour gérer la sélection d'un appareil si nécessaire
+    item.addEventListener('click', () => {
+      console.log(`Appareil sélectionné : ${appliance}`);
+      // Vous pouvez ajouter ici une action de filtrage ou de sélection par appareil
+    });
+
+    // Ajouter l'élément <li> à la liste
+    applianceList.appendChild(item);
+  });
+}
+
+
 function populateUstensilsList(ustensilArray) {
   const ustensilsList = document.getElementById('dropdown_ustensils');
   ustensilArray.forEach(ustensil => {
@@ -72,15 +93,26 @@ getData().then(recettes => {
 
   appliances = getUniqueAppliance(recettes);
   console.log(appliances);
-  const dropdownButton = document.querySelector('.dropdown_button');
+  populateAppliancesList(appliances);
+  const dropdownButtonAppliances = document.querySelector('.dropdown_button_appliances');
+  const dropdownButtonUstensils = document.querySelector('.dropdown_button_ustensils');
   const ustensilsList = document.getElementById('dropdown_ustensils');
-
+  const appliancesList = document.getElementById('dropdown_appliances');
   // Par défaut, on cache la liste des ustensiles
   ustensilsList.style.display = 'none';
   ustensilsList.style.listStyle= 'none'
 
-  // Ajouter un gestionnaire d'événements sur le bouton "Ustensiles" pour afficher/masquer la liste
-  dropdownButton.addEventListener('click', () => {
+  
+  appliancesList.style.display = 'none';
+  appliancesList.style.listStyle= 'none'
+  
+  dropdownButtonAppliances.addEventListener('click', () => {
+    // Si la liste est déjà visible, la masquer, sinon l'afficher
+    appliancesList.style.display = appliancesList.style.display === 'none' ? 'block' : 'none';
+  });
+
+  
+  dropdownButtonUstensils.addEventListener('click', () => {
     // Si la liste est déjà visible, la masquer, sinon l'afficher
     ustensilsList.style.display = ustensilsList.style.display === 'none' ? 'block' : 'none';
   });
