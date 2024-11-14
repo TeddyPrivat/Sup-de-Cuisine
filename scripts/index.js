@@ -112,6 +112,7 @@ function populateIngredientsList(ingredientsArray) {
   searchInput.placeholder = 'Poulet...';
   searchInput.className = 'search-bar'; 
 
+  ingredientsArray.sort((a, b) => a.localeCompare(b));
   ingredientsList.appendChild(searchInput);
 
   searchInput.addEventListener('input', () => {
@@ -137,7 +138,7 @@ function populateAppliancesList(applianceArray) {
   searchInput.type = 'text';
   searchInput.placeholder = 'Blender...';
   searchInput.className = 'search-bar'; 
-
+  applianceArray.sort((a, b) => a.localeCompare(b));
   applianceList.appendChild(searchInput);
 
   searchInput.addEventListener('input', () => {
@@ -164,7 +165,7 @@ function populateUstensilsList(ustensilArray) {
   searchInput.type = 'text';
   searchInput.placeholder = 'Passoire...';
   searchInput.className = 'search-bar';
-
+  ustensilArray.sort((a, b) => a.localeCompare(b));
   ustensilsList.appendChild(searchInput);
 
   searchInput.addEventListener('input', () => {
