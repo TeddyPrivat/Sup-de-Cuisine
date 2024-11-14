@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap"
+      rel="stylesheet"
+    >
+
+    <script
+      src="https://kit.fontawesome.com/f8e044ed3c.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Sup de Cuisine</title>
+    <script type="module" crossorigin src="/assets/index-Da7Oj9z7.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Bme1EUpN.css">
+  </head>
+  <body>
+    <header>
+      <div class="header">
+        <img class="image-background" src="/assets/image-background-BlKCEFWa.avif" alt="image de fond du header, montrant une table sur laquelle il y a plein de nourriture">
+        <p class="texte-titre">
+          CHERCHEZ PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN, SIMPLES ET
+          GENEREUSES
+        </p>
+        <div class="search-input">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Recherchez une recette, un ingrédient..."
+            autofocus>
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+      </div>
+    </header>
+    <div class="filtres">
+      <div class="ingredients-contener">
+        <div class="ingredients">
+          <div class="dropdown">
+            <button class="dropdown_button_ingredients">
+              Ingrédients<i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <ul id="dropdown_ingredients">
+              <!-- Les appareils seront ici -->
+            </ul>
+          </div>
+        </div>
+        <div class="appareils">
+          <div class="dropdown">
+            <button class="dropdown_button_appliances">
+              Appareils<i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <ul id="dropdown_appliances">
+              <!-- Les appareils seront ici -->
+            </ul>
+          </div>
+        </div>
+        <div class="ustensiles">
+          <div class="dropdown">
+            <button class="dropdown_button_ustensils">
+              Ustensiles<i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <ul id="dropdown_ustensils">
+              <!-- les ustensiles seront ici -->
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="nb-recettes">
+        <p
+          id="nbResults"
+          style="font-family: 'Protest Strike', sans-serif"
+        ></p>
+      </div>
+    </div>
+    <div id="tags"></div>
+
+    <div id="recettes" class="recettes"></div>
+
+  </body>
+</html>
