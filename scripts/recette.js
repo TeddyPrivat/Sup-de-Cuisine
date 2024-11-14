@@ -5,7 +5,7 @@ function createCard(){
   article.innerHTML= 
   `
     <div>
-      <img class="image-recette" src="./images/${this.image}" alt="Image de la recette"/>
+      <img class="image-recette" src="images/${this.image}" alt="Image de la recette"/>
     </div>
     <div class="infos">
       <div class="infos-name">
