@@ -5,12 +5,16 @@
   "scripts": {
     "test": "jest",
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "predeploy" : "npm run build",
+    "deploy" : "gh-pages -d dist"
   },
   "author": "",
+  "homepage": "https://TeddyPrivat.github.io/Sup-de-cuisine/",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "gh-pages": "^6.2.0",
     "jest": "^29.7.0",
     "vite": "^5.4.11"
   }
