@@ -132,8 +132,12 @@ function populateIngredientsList(ingredientsArray) {
 
     item.addEventListener("click", () => {
       addTag(ingredient);
+      searchInput.value = "";
+      filterList(ingredientsList, searchInput, ".ingredient-item");
     });
     ingredientsList.appendChild(item);
+    
+
   });
 }
 
@@ -158,6 +162,8 @@ function populateAppliancesList(applianceArray) {
 
     item.addEventListener("click", () => {
       addTag(appliance);
+      searchInput.value = "";  
+      filterList(applianceList, searchInput, ".appliance-item");
     });
     applianceList.appendChild(item);
   });
@@ -184,6 +190,8 @@ function populateUstensilsList(ustensilArray) {
 
     item.addEventListener("click", () => {
       addTag(ustensil);
+      searchInput.value = "";
+      filterList(ustensilsList, searchInput, ".ustensil-item");
     });
     ustensilsList.appendChild(item);
   });
