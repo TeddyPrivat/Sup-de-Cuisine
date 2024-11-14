@@ -302,7 +302,7 @@ select{
   margin-left: 5px;
 }
 /* media query pour tablettes */
-@media (min-width: 769px) and (max-width: 1024px) {
+/* @media (min-width: 769px) and (max-width: 1024px) {
   #tags{
     margin-left: 3%;
   }
@@ -311,7 +311,7 @@ select{
       max-width: 250px;
     }
   }
-}
+} */
 
 /* media query pour téléphones */
 @media (min-width: 320px) and (max-width: 768px){
@@ -435,6 +435,16 @@ select{
 
   .recette{
     max-width: 300px;
+    .infos-recette{
+      max-width: 250px;
+    }
+    .infos-name{
+      font-size: 16px;
+      max-width: 250px;
+    }
+    .ingredients{
+      padding-right: 30px;
+    }
   }
   
 }
