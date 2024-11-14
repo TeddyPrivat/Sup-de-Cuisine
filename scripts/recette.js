@@ -1,11 +1,12 @@
 function createCard(){
   const article = document.createElement('article');
   article.setAttribute('class', 'recette');  //ajout de la classe 
-  const ingredientsHTML = createIngredientHTML(this.ingredients)
+  const ingredientsHTML = createIngredientHTML(this.ingredients);
+  const imageName = this.image.replace(/\.jpg$/, '.webp');
   article.innerHTML= 
   `
     <div>
-      <img class="image-recette" src="./images/${this.image}" alt="Image de la recette"/>
+      <img class="image-recette" src="./images/${imageName}" alt="Image de la recette"/>
     </div>
     <div class="infos">
       <div class="infos-name">
