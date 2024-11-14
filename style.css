@@ -314,7 +314,7 @@ select{
 }
 
 /* media query pour téléphones */
-@media (min-width: 320px) and (max-width: 768px){
+@media (min-width: 320px) and (max-width: 767px){
   
   .header{
     .texte-titre{
